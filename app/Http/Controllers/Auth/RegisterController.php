@@ -48,11 +48,35 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'username' => 'required|string|max:255',
-            'mail' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:4|confirmed',
-        ]);
+        return Validator::make($data,
+        [
+            'username' => 'required|string|min:4|max:12',
+            'mail' => 'required|string|email|min:4|max:12|unique:users',
+            'password' => 'required|string|min:4|max:12|confirmed',
+            'password_confirmation' => 'required|string|min:4|max:12',
+        ],
+        [
+            'username.required' =>'必須項目です',
+            'username.min' =>'4文字以上で入力してください',
+            'username.max' =>'12文字以内で入力してください',
+
+            'mail.required' => '必須項目です',
+            'mail.email' => 'メールアドレスではありません',
+            'mail.min' => '4文字以上で入力してください',
+            'mail.max' => '12文字以内で入力してください',
+            'mail.unique' => 'すでに登録されています',
+
+            'password.required' => '必須項目です',
+            'password.min' => '4文字以上で入力してください',
+            'password.max' => '12文字以内で入力してください',
+            'password.unique' => 'すでに登録されています',
+
+            'password_confirmation.required' => '必須項目です',
+            'password_confirmation.min' => '4文字以上で入力してください',
+            'password_confirmation.max' => '12文字以内で入力してください',
+            'password_confirmation.unique' => 'すでに登録されています',
+            'password_confirmation.same' => 'パスワードと確認用パスワードが一致していません',
+        ])->validate();
     }
 
     /**
@@ -78,14 +102,15 @@ class RegisterController extends Controller
     public function register(Request $request){
         if($request->isMethod('post')){
             $data = $request->input();
-
+            $this->validator($data);
             $this->create($data);
-            return redirect('added');
+            return redirect('added')->with('username', $data['username']);
         }
         return view('auth.register');
     }
 
-    public function added(){
-        return view('auth.added');
+    public function added(Request $request){
+        $username = $request->input('username');
+        return view('auth.added', ['username'=>$username]);
     }
 }

@@ -2,8 +2,61 @@
 
 html{
     height: 100%;
+    overflow: hidden;
 }
 body{
+    margin: 7%;
+    text-align: center;
     height: 100%;
-    background: #3C4767;
+    background: linear-gradient(to bottom, #3C4767 50%,#ca4e37 100%);
+    color: #FFFF;
+}
+header p{
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+a{
+    color: #FFFF;
+}
+
+form{
+    display: inline-block;
+    margin-top: 20px;
+    padding: 40px;
+    background: rgba(0,0,0,0.2);
+    border-radius:5px;
+}
+form p{
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+form p a{
+    font-size: 12px;
+}
+
+form label{
+    font-size: 12px;
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input{
+    display: block;
+    border: 0;
+    border-radius:3px;
+    padding: 5px 15px 5px 15px;
+}
+
+input[type="submit"]{
+    margin: 20px 0px 20px 0px;
+    margin-left: auto;
+    margin-right: 0;
+    padding: 6px 28px 6px 28px;
+    color: #FFFF;
+    background-color: #4f64a0;
+    border: 0;
+    border-radius:6px;
+    cursor: pointer;
 }

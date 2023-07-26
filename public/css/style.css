@@ -1,22 +1,313 @@
 @charset "utf-8";
+/* login */
+
 html{
 }
 body{
+    background-color: #FFF;
+}
+h1{
+    font-size: 35px;
 }
 /* header */
 header{
     background:#3C4767;
 }
 
-/* main content */
-#row{
+#head{
+    padding: 0 0 0 5%;
+}
+
+.menu{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    color: #FFFF;
+    width: 225px;
+}
+.menu img{
+    border-radius: 50%;
+}
+
+.menu a {
+    display: block;
+    padding: 18.5px;
+    text-decoration: none;
+    text-align: center;
+    color: #6C6C6C;
+    border-bottom: solid 1px #6C6C6C;
+    border-left: solid 1px #6C6C6C;
+}
+
+label{
+    display: block;
+    margin: 22.55px 15px 22.5px 0px;
+    line-height: 0;
+    color: #FFF;
+    cursor: pointer;
+
     display: flex;
-    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
 }
-#container{
-    flex: 0 0 80%;
+
+input[type="checkbox"]{
+    display: none;
 }
+.menu ul {
+    margin: 0;
+    padding: 0;
+    background :#FFFF;
+    list-style: none;
+}
+.menu li {
+    height: 0;
+    overflow: hidden;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+#menu_bar01:checked ~ #links01 li{
+    height: 54px;
+    opacity: 1;
+}
+
+.menu li :hover{
+    background-color: #ca4e37;
+    color: #FFFF;
+}
+
+.arrow {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-top: solid 3px #FFFF;
+    border-right: solid 3px #FFFF;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.arrow:active{
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+
+/* main content */
+.user_post{
+    margin: 20px;
+}
+
+.btn{
+    padding: 0%;
+}
+
+.btn-success{
+    background-color: #FFF;
+    border-color: #FFF;
+}
+
+.btn-success:hover{
+    background-color: #FFF;
+    border-color: #FFF;
+}
+
+.container table{
+    margin-top: 50px;
+}
+
+.btn-primary{
+    padding: 5px 10px 5px 10px;
+    background-color: #FFF;
+    border-color: #FFF;
+}
+
+.btn-primary:hover{
+    background-color: #FFF;
+    border-color: #FFF;
+}
+
+.btn-danger{
+    background-color: #FFF;
+    border-color: #FFF;
+}
+
+.btn-danger:hover{
+    background-color: #FFF;
+    border-color: #c5c5c5;
+}
+
+/* モーダルのスタイル */
+.modal-open {
+    cursor: pointer;
+    background-color: #FFFF;
+    border: solid 5px #FFF;
+    border-radius: 5px;
+}
+
+.modal-open:active{
+    background-color: #dddddd;
+    border: solid 5px #dddddd;
+}
+
+.modal-main{ /* ① モーダルウィンドウを非表示にする。*/
+    display: none;
+  }
+
+.modal-inner { /* ② モーダル背景を画面幅いっぱいに設定し、位置を固定する。 */
+    display: flex;
+    margin-left: 25%;
+    margin-top: 15%;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    background-color: #FFFF;
+    color: #666666;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    border-radius: 10px;
+    border: solid 1px #6C6C6C;
+}
+
+.inner-content{ /* ③ モーダル内の要素全体の子要素を中央揃えにする。 */
+    text-align: center;
+    margin: 0;
+    padding: 0px;
+}
+
+.modalClose{
+    margin-top: 10px;
+    cursor: pointer;
+    color: #666666;
+}
+
+/* side-bar */
+#row{
+    width: 80%;
+}
+
+.container{
+    width: 100%;
+}
+
 #side-bar{
-    flex: 0 0 19%;
+    position: absolute;
+    top: 280px;
+    right: 0%;
+    padding-right: 70px;
     border-left: 1px solid #6C6C6C;
+}
+
+#side-bar p{
+    margin: 10px;
+}
+
+#side-bar .btn{
+    padding: 10px;
+    background-color: #3C4767;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#side-bar .btn a{
+    color: #FFF;
+}
+
+/*search*/
+#search-form form{
+    display: flex;
+    margin: 30px 100px 30px 30px;
+}
+#search-form .form-control{
+    width: 250px;
+}
+#search-form .btn-primary{
+    width: 80px;
+}
+
+.keyword_username{
+    margin: 0px 30px 30px 30px;
+}
+
+/*profile*/
+.UserProfile{
+    padding: 3% 25% 0% 25%;
+}
+
+.UserProfile .btn{
+    background-color: #7b9979;
+    padding: 10px 50px 10px 50px;
+}
+
+.UserProfile p{
+    margin: 15px 0px 5px 0px;
+}
+
+/* follow list */
+.follow_list{
+    margin: 30px;
+}
+.follow_list img{
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.follow_post img{
+    border-radius: 50%;
+}
+
+.follow_list .btn-primary{
+    padding: 0%;
+}
+
+.follow_list .btn-primary:hover{
+    background-color: #FFF;
+    border-color: #FFF;
+    text-decoration: none;
+}
+
+/* follower list */
+.follower_list{
+    margin: 30px;
+}
+.follower_list img{
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.follower_post img{
+    border-radius: 50%;
+}
+
+.follower_list .btn-primary{
+    padding: 0%;
+}
+
+.follower_list .btn-primary:hover{
+    background-color: #FFF;
+    border-color: #FFF;
+    text-decoration: none;
+}
+
+/* personal-profile */
+.personal-profile{
+    margin:50px 80px 50px 80px;
+}
+.personal-profile p{
+    margin: 10px;
+}
+.personal-profile img{
+    border-radius: 50%;
+}
+.personal-profile .btn-primary{
+    display: block;
+    margin-left: 85%;
+}
+
+.personal-post img{
+    border-radius: 50%;
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
@@ -38,17 +39,21 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    
+
     public function login(Request $request){
         if($request->isMethod('post')){
-            
+
             $data=$request->only('mail','password');
             // ログインが成功したら、トップページへ
             //↓ログイン条件は公開時には消すこと
             if(Auth::attempt($data)){
-                return redirect('/top');
+                return redirect('/top')->with('password', $data['password']);
             }
         }
         return view("auth.login");
     }
+
+    protected function loggedOut(\Illuminate\Http\Request $request) {
+        return redirect('login');
+      }
 }
