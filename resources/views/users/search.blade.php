@@ -1,6 +1,7 @@
 @extends('layouts.login')
 
 @section('content')
+<body>
 <div id="search-form">
 <form action="{{ url('/search-result')}}" method="post">
     {{ csrf_field()}}
@@ -10,11 +11,14 @@
 </form>
 </div>
 
+<div class = "line"></div>
+
 <div id="user-list">
-<table class="table">
+<table class="user-table">
 @foreach($users as $personal)
 <tr>
-  <td>{{$personal->username}}</td>
+  <td class = image><img src="/images/{{$personal->images}}" style="border-radius: 50%;"></td>
+  <td class = username>{{$personal->username}}</td>
   <td>
     @if($follows->contains('follower',$personal->id))
       <a class="btn btn-primary" href="/unfollow/{{ $personal->id }}" style="background-color: #b95656;">フォロー解除</a>
@@ -25,5 +29,9 @@
 <tr>
 @endforeach
 </table>
+</div>
+
+</body>
+</html>
 </div>
 @endsection

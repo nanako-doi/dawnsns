@@ -1,24 +1,17 @@
 // console.log(1+1);
 
 // 三角マーク
-$(function(){
-    $('.arrow').click(function () {
-        $(this).toggleClass('active');
-        if($(this).hasClass('active')){
-            $('.menu').addClass('active');
-        }else{
-            $('.menu').removeClass('active');
-        }
-    });
-    $('.accordion ul li a').click(function(){
-        $('.arrow').removeClass('active');
-        $('.menu').removeClass('active');
-    });
-});
+jQuery(function ($) {
+  $('.js-accordion-title').on('click', function () {
+    $(this).next().slideToggle(200);
+    $(this).toggleClass('open', 200);
+  });
+
+  });
 
 // モーダル
 $(function () {
-    $('.modalopen').each(function () {
+    $('.modal-open').each(function () {
       $(this).on('click', function () {
         var target = $(this).data('target');
         var modal = document.getElementById(target);
@@ -27,9 +20,9 @@ $(function () {
         return false;
       });
     });
-    $('.modalClose').on('click', function () {
-      $('.js-modal').fadeOut();
-      return false;
-    });
+    // $('.modal-close').on('click', function () {
+    //   $('.js-modal').fadeOut();
+    //   return false;
+    // });
   });
 

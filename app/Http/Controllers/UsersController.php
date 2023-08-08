@@ -3,80 +3,83 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Models\Follower;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
-      /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data,
-        [
-            'username' => 'required|string|min:4|max:12',
-            'mail' => 'required|string|email|min:4|max:12|unique:users',
-            'password' => 'required|string|min:4|max:12|confirmed',
-            'password_confirmation' => 'required|string|min:4|max:12',
-        ],
-        [
-            'username.required' =>'必須項目です',
-            'username.min' =>'4文字以上で入力してください',
-            'username.max' =>'12文字以内で入力してください',
-
-            'mail.required' => '必須項目です',
-            'mail.email' => 'メールアドレスではありません',
-            'mail.min' => '4文字以上で入力してください',
-            'mail.max' => '12文字以内で入力してください',
-            'mail.unique' => 'すでに登録されています',
-
-            'password.required' => '必須項目です',
-            'password.min' => '4文字以上で入力してください',
-            'password.max' => '12文字以内で入力してください',
-            'password.unique' => 'すでに登録されています',
-        ]
-        )->validate();
-    }
 
     //ログインユーザーのプロフィール
     public function profile(Request $request){
-      $password = $request->input('password');
+      $passwordCount = session()->get('wordCount');
       // dd($password);
-      return view('users.profile', ['password'=>$password]);
+      return view('users.profile', ['passwordCount'=>$passwordCount]);
     }
-    //ログインユーザーのプロフィールを更新する
+
+    //ログインユーザーのプロフィール更新
     public function profileup(Request $request){
+      $request->validate(
+      [ 'up_username' => 'required|string|min:4|max:12',
+        'up_mail' => 'required|string|email|min:4|max:12',
+        'up_bio' => 'max:200',
+      ],
+      [ 'up_username.required' =>'必須項目です',
+        'up_username.min' =>'4文字以上で入力してください',
+        'up_username.max' =>'12文字以内で入力してください',
+
+        'up_mail.required' => '必須項目です',
+        'up_mail.email' => 'メールアドレスではありません',
+        'up_mail.min' => '4文字以上で入力してください',
+        'up_mail.max' => '12文字以内で入力してください',
+
+        'up_bio.max' => '200文字以内で入力してください',
+      ]);
+
       $id = $request->input('id', Auth::user()->id);
       $up_username = $request->input('up_username');
       $up_mail = $request->input('up_mail');
-      $up_password = bcrypt($request->input('up_password'));
       $up_bio = $request->input('up_bio');
       $up_images = $request->input('up_images');
-// dd($up_username);
-      if(!empty($up_password)){
+
+      if(request('up_password')){
+        $request->validate([
+          'up_password' => 'required|string|min:4|max:12|different:password',
+        ],
+        [ 'up_password.min' => '4文字以上で入力してください',
+          'up_password.max' => '12文字以内で入力してください',
+          'up_password.different' => '現在のパスワードと同じです',
+        ]);
+        $up_password = bcrypt($request->input('up_password'));
         DB::table('users')
         ->where('id', Auth::user()->id)
-        ->update([
-          'password'=>$up_password ,
-        ]);
+        ->update(['password'=>$up_password ,]);
       }
+
+      if(request('up_images')){
+        $request->validate([
+          'up_images' => 'image'
+        ],
+        [ 'up_images.image' => '画像ファイルを選択してください',
+        ]);
+        $filename=$request->file('up_images')->getClientOriginalName();
+        $request->file('up_images')->storeAs('public/images', $filename);
+        DB::table('users')
+        ->where('id',Auth::user()->id)
+        ->update(['images'=>$filename,]);
+      }
+
       DB::table('users')
       ->where('id', Auth::user()->id)
       ->update([
         'username' => $up_username ,
         'mail'=>$up_mail ,
         'bio'=>$up_bio ,
-        'images'=>$up_images
       ]);
-      return redirect('/profile');
+      return redirect('/logout');
     }
 
     // 指定したユーザーのプロフィール
@@ -93,7 +96,7 @@ class UsersController extends Controller
         'follower' => $id,
         'follow' => Auth::user()->id,
     ]);
-    // ※リダイレクト先を指定ユーザーのプロフィールにしたい
+
       return redirect('/top');
     }
 
@@ -102,16 +105,14 @@ class UsersController extends Controller
             ->where('follower', $id)
             ->where('follow', Auth::user()->id)
             ->delete();
-    // ※リダイレクト先を指定ユーザーのプロフィールにしたい
+
         return redirect('/top');
     }
 
 
     //ユーザー検索
     public function index(){
-      // フォローリストから値を取得
       $follows = DB::table('follows')->where('follow',Auth::user()->id)->get();
-      // dd($follows);
       $users = User::all();
       return view('users.search')->with(['users'=>$users , 'follows'=>$follows]);
     }
@@ -120,9 +121,11 @@ class UsersController extends Controller
         $follows = DB::table('follows')->where('follow',Auth::user()->id)->get();
         // 検索結果の表示
         $keyword_username = $request->username;
+        // 曖昧検索
         if(!empty($keyword_username)) {
         $query = User::query();
         $users = $query->where('username','like', '%' .$keyword_username. '%')->get();
+
         return view('users.search-result')->with(['users'=>$users , 'follows'=>$follows , 'keyword_username'=>$keyword_username ]);
       }
         else {
@@ -139,15 +142,15 @@ class UsersController extends Controller
 
       return redirect('/search');
     }
-    // フォローを解除する
-    public function unfollow($id)
-    {
-        DB::table('follows')
-            ->where('follower', $id)
-            ->where('follow', Auth::user()->id)
-            ->delete();
 
-        return redirect('/search');
+    // フォローを解除する
+    public function unfollow($id){
+      DB::table('follows')
+          ->where('follower', $id)
+          ->where('follow', Auth::user()->id)
+          ->delete();
+
+      return redirect('/search');
     }
 
 }

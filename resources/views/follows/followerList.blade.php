@@ -12,20 +12,22 @@
         @endif
         @endforeach
     </div>
-    <div class = "follower_post">
-        <table class='table table-hover'>
-            @foreach ($posts as $post)
-            @if($followers->contains('follow',$post->user_id))
-            <tr>
-                <!-- 表示された$postsのuser_idと$usersのidが同じ$usersのimagesを表示させる -->
-                <td><img src = "/images/dawn.png"></td>
-                <td>{{ $post->post }}</td>
-                <td>{{ $post->created_at }}</td>
-            </tr>
-            @endif
-            @endforeach
+
+    <div class = "line"></div>
+
+    <div class='timeline'>
+      <table class='timeline_table'>
+        @foreach ($posts as $post)
+          <tr>
+            <td class = img><a href="/personal-profile/{{ $post->user_id }}"><img src="/images/{{$post->images}}" style="border-radius: 50%;"></td>
+            <th class = "username">{{ $post->username }}</th>
+            <td class = "post">{{ $post->post }}</td>
+            <th class = "created_at">{{ $post->created_at }}</th>
+        @endforeach
         </table>
     </div>
 </body>
+</html>
+</div>
 
 @endsection

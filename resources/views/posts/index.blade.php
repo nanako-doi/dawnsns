@@ -4,47 +4,54 @@
 
   <body>
       <div class="user_post">
-        <img src="images/dawn.png" style="border-radius: 50%;">
+        <img src="storage/images/{{Auth::user()->images}}" style="border-radius: 50%;">
         {!! Form::open(['url' => '/top']) !!}
         <div class="form-group">
             {!! Form::input('text', 'newPost', null, ['required', 'class' => 'form-control', 'placeholder' => 'なにをつぶやこうかなあ']) !!}
+            @if($errors->has('newPost'))
+            <div class="error"><p>{{ $errors->first('newPost') }}</p></div>
+            @endif
         </div>
-        <button type="submit" class="btn btn-success pull-right"><img src="images/post.png"></button>
+        <button type="submit" class="post-button pull-right"><img src="images/post.png"></button>
         {!! Form::close() !!}
       </div>
 
-      <div class='container'>
+      <div class = "line"></div>
 
-      <table class='table table-hover'>
+      <div class='timeline'>
+      <table class='timeline_table'>
           @foreach ($posts as $post)
-          @if($follows->contains('follower',$post->user_id))
           <tr>
-            <td><img src = "/images/dawn.png" style="border-radius: 50%;"></td>
-            <td>{{ $post->post }}</td>
-            <td>{{ $post->created_at }}</td>
-
-            <!-- if ログインユーザーのidが$postのuser_idにあれば編集・削除ボタンを表示させる。 -->
-            <td><button class="modal-open" data-target="js-modal"><img src="images/edit.png"></button></td>
+            <td class = img><img src="/images/{{$post->images}}" style="border-radius: 50%;"></td>
+            <th class = username>{{ $post->username }}</th>
+            <td class = post>{{ $post->post }}</td>
+            <th class = created_at>{{ $post->created_at }}</th>
+            @if($post->user_id === Auth::user()->id)
+            <td><button class="modal-open" data-target="{{$post->id}}"><img src="images/edit.png"></button></td>
               <!-- モーダル -->
-              <td class="modal-main" id="js-modal">
+              <div class="modal-main js-modal" id="{{$post->id}}">
               <div class="modal-inner">
               <div class="inner-content">
                 {!! Form::open(['url' => '/post/{id}/update']) !!}
                 {!! Form::hidden('id', $post->id) !!}</>
                 {!! Form::input('text', 'upPost', $post->post, ['required', 'class' => 'form-control']) !!}</>
-                <button type="submit" class="send-button update">更新</button>
+                @if($errors->has('upPost'))
+                  <div class="error"><p>{{ $errors->first('upPost') }}</p></div>
+                @endif
+                <button type="submit" class="send-button update"><img src="images/edit.png"></button>
                 {!! Form::close() !!}
-                <a class="send-button modalClose">キャンセル</a>
+                <br>
+                <!-- <a class="send-button modal-close">close</a> -->
               </div>
               </div>
-              </td>
+              </div>
             <td>
               <a class="delete-button" href="/post/{{ $post->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">
               <img src="images/trash.png" onmouseover="this.src='images/trash_h.png'" onmouseout="this.src='images/trash.png'">
               </a>
             </td>
-          </tr>
             @endif
+          </tr>
             @endforeach
         </table>
       </div>

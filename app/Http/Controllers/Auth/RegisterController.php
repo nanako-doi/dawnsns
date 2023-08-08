@@ -52,7 +52,7 @@ class RegisterController extends Controller
         [
             'username' => 'required|string|min:4|max:12',
             'mail' => 'required|string|email|min:4|max:12|unique:users',
-            'password' => 'required|string|min:4|max:12|confirmed',
+            'password' => 'required|string|min:4|max:12|confirmed|unique:users',
             'password_confirmation' => 'required|string|min:4|max:12',
         ],
         [
@@ -74,7 +74,6 @@ class RegisterController extends Controller
             'password_confirmation.required' => '必須項目です',
             'password_confirmation.min' => '4文字以上で入力してください',
             'password_confirmation.max' => '12文字以内で入力してください',
-            'password_confirmation.unique' => 'すでに登録されています',
             'password_confirmation.same' => 'パスワードと確認用パスワードが一致していません',
         ])->validate();
     }

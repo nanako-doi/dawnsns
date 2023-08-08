@@ -14,22 +14,135 @@ header{
     background:#3C4767;
 }
 
-#head{
+#head h1{
     padding: 0 0 0 5%;
 }
-
-.menu{
+#head h2 img{
     position: absolute;
-    top: 0%;
-    right: 0%;
-    color: #FFFF;
-    width: 225px;
-}
-.menu img{
+    top: 20px;
+    right: 20px;
     border-radius: 50%;
 }
 
-.menu a {
+#row{
+    display: flex;
+}
+#container{
+    width: 75%;
+}
+
+/* side-bar */
+
+#side-bar{
+    border-left: 1px solid #6C6C6C;
+    width: 25%;
+    text-align: right;
+}
+
+#confirm{
+    margin: 20px;
+}
+
+#confirm p{
+    padding: 10px;
+}
+
+#confirm .left-title{
+    text-align: left;
+}
+
+#side-bar .btn{
+    padding: 10px;
+    background-color: #3C4767;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#side-bar .btn a{
+    color: #FFF;
+}
+
+#search-btn{
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* アコーディオンメニュー */
+.accordion-container {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 100%;
+    cursor: pointer
+  }
+
+  .accordion-container .accordion-title {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0.625em 0.625em 0.625em 2em;
+    font-size: 1em;
+    font-weight: normal;
+    color: #fff;
+    cursor: pointer;
+    margin-bottom: 34px;
+
+  }
+
+  .accordion-container .accordion-title:hover,
+  .accordion-container .accordion-title:active,
+  .accordion-container .content-entry.open .accordion-title {
+    color: white;
+  }
+
+  .accordion-container .accordion-title:hover i:before,
+  .accordion-container .accordion-title:hover i:active,
+  .accordion-container .content-entry.open i {
+    color: white;
+  }
+
+  .accordion-title{
+    position: relative;
+  }
+
+  .accordion-title:after {
+    content: "";
+    position: absolute;
+    right: 30%;
+    top: 38%;
+    transition: all 0.2s ease-in-out;
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-top: solid 2px #fff;
+    border-right: solid 2px #fff;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+  }
+
+  .accordion-title.open:after {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    top: 45%;
+  }
+
+  .accordion-content {
+    display: none;
+    padding-left: 2.3125em;
+  }
+
+  .accordion-content ul {
+    margin: 0;
+    padding: 0;
+    background :#FFFF;
+}
+
+  .accordion-content li :hover{
+    background: #ca4e37;
+    color: #FFFF;
+}
+
+.accordion-content a {
     display: block;
     padding: 18.5px;
     text-decoration: none;
@@ -39,65 +152,91 @@ header{
     border-left: solid 1px #6C6C6C;
 }
 
-label{
-    display: block;
-    margin: 22.55px 15px 22.5px 0px;
-    line-height: 0;
-    color: #FFF;
-    cursor: pointer;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-input[type="checkbox"]{
-    display: none;
-}
-.menu ul {
-    margin: 0;
-    padding: 0;
-    background :#FFFF;
-    list-style: none;
-}
-.menu li {
-    height: 0;
-    overflow: hidden;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    transition: all 0.5s;
-}
-#menu_bar01:checked ~ #links01 li{
-    height: 54px;
-    opacity: 1;
-}
-
-.menu li :hover{
-    background-color: #ca4e37;
-    color: #FFFF;
-}
-
-.arrow {
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-top: solid 3px #FFFF;
-    border-right: solid 3px #FFFF;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-}
-
-.arrow:active{
-    -webkit-transform: rotate(135deg);
-    transform: rotate(135deg);
-}
+  .accordion-container {
+    width: 300px;
+    margin: 1.875em auto;
+  }
 
 /* main content */
 .user_post{
+    display: flex;
     margin: 20px;
 }
+
+.user_post img{
+    height: 55px;
+    width: 55px;
+    margin-right: 10px;
+}
+
+.post-button{
+    background-color: #FFFF;
+    border: 0px;
+    padding: 0%;
+}
+
+.post-button img{
+    height: 35px;
+    width: 35px;
+}
+
+.form-control{
+    box-shadow: none;
+    border-radius: 0%;
+    border: 0px;
+    height: 55px;
+    width: 500px;
+}
+
+.line{
+    position:relative;
+    z-index: -1;
+ }
+
+ .line::after{
+    content:"";
+    display:block;
+    width:100%;
+    height:5px;
+    background-color:#d7d7d7;
+    position:absolute;
+    bottom:0;
+ }
+
+.timeline{
+}
+
+.timeline_table{
+    width: 100%;
+}
+
+.timeline_table tr{
+    height: 100px;
+    border-bottom:1px solid #d7d7d7;
+}
+
+.timeline_table th{
+    font-size: 12px;
+}
+
+.timeline_table td.img{
+    padding-left: 5%;
+}
+
+
+.timeline_table th.username,.timeline_table td.post{
+    display: block;
+    padding-left: 5%;
+}
+
+.timeline_table th.username{
+    padding-top: 15px;
+}
+
+.timeline_table td.post{
+    padding-top: 10px;
+}
+
 
 .btn{
     padding: 0%;
@@ -111,10 +250,6 @@ input[type="checkbox"]{
 .btn-success:hover{
     background-color: #FFF;
     border-color: #FFF;
-}
-
-.container table{
-    margin-top: 50px;
 }
 
 .btn-primary{
@@ -156,95 +291,109 @@ input[type="checkbox"]{
   }
 
 .modal-inner { /* ② モーダル背景を画面幅いっぱいに設定し、位置を固定する。 */
+    overflow-y: scroll;
     display: flex;
-    margin-left: 25%;
-    margin-top: 15%;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    height: 50%;
-    background-color: #FFFF;
+    width: 100%;
+    height: 100%;
+    background: rgba(123,123,123,0.5);
     color: #666666;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 2;
-    border-radius: 10px;
-    border: solid 1px #6C6C6C;
 }
 
-.inner-content{ /* ③ モーダル内の要素全体の子要素を中央揃えにする。 */
+.inner-content{
+    display: flex;
     text-align: center;
-    margin: 0;
-    padding: 0px;
+    margin: 0px;
+    padding: 5%;
+    max-width: 1024px;
+    background-color: #FFF;
+    border-radius: 8px;
 }
 
-.modalClose{
-    margin-top: 10px;
+.inner-content .form-control{
+    width: 300px;
+    height: 150px;
+    border:1px solid #6C6C6C;
+    border-radius: 5px;
+}
+
+.inner-content .send-button{
+    margin-left: 10px;
+    padding-top: 30%;
+    background-color: #FFFF;
+    border: none;
+}
+
+/* .modal-close{
     cursor: pointer;
     color: #666666;
-}
-
-/* side-bar */
-#row{
-    width: 80%;
-}
-
-.container{
-    width: 100%;
-}
-
-#side-bar{
-    position: absolute;
-    top: 280px;
-    right: 0%;
-    padding-right: 70px;
-    border-left: 1px solid #6C6C6C;
-}
-
-#side-bar p{
-    margin: 10px;
-}
-
-#side-bar .btn{
-    padding: 10px;
-    background-color: #3C4767;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-#side-bar .btn a{
-    color: #FFF;
-}
+} */
 
 /*search*/
 #search-form form{
     display: flex;
-    margin: 30px 100px 30px 30px;
+    margin: 30px 100px 30px 60px;
 }
 #search-form .form-control{
     width: 250px;
+    border:1px solid #6C6C6C;
+    border-radius: 5px;
 }
 #search-form .btn-primary{
+    margin-left: 10px;
+    width: 50px;
+}
+
+#user-list{
+    margin-top: 50px;
+}
+
+.user-table{
+    width: 100%;
+    margin-left: 50px;
+}
+
+
+.user-table tr{
+    height: 15px;
+}
+
+.user-table td.image{
     width: 80px;
 }
 
 .keyword_username{
-    margin: 0px 30px 30px 30px;
+    margin: 0px 30px 30px 60px;
 }
 
 /*profile*/
 .UserProfile{
-    padding: 3% 25% 0% 25%;
+    margin: 5% 25% 0 25%;
 }
 
 .UserProfile .btn{
     background-color: #7b9979;
     padding: 10px 50px 10px 50px;
+    margin-top: 20px;
 }
 
-.UserProfile p{
-    margin: 15px 0px 5px 0px;
+.UserProfile label{
+    font-size: 15px;
+    margin: 10px 0px 5px 0px;
+}
+
+.UserProfile .form-control{
+    box-shadow: none;
+    border-radius: 0%;
+    border: 0px;
+    border-bottom:2px #6C6C6C solid;
+    background-color: #f2f2f2;
+    height: 45px;
 }
 
 /* follow list */
@@ -295,19 +444,41 @@ input[type="checkbox"]{
 
 /* personal-profile */
 .personal-profile{
-    margin:50px 80px 50px 80px;
+    display: flex;
+    margin:50px 50px 50px 50px;
 }
-.personal-profile p{
-    margin: 10px;
+
+.profile-box{
+    display: block;
+    margin-left: 30px;
 }
+.profile-box p{
+    padding: 10px;
+}
+
+.profile-box p.title{
+    font-size: 12px;
+}
+
+
 .personal-profile img{
     border-radius: 50%;
+    width: 55px;
+    height: 55px;
 }
 .personal-profile .btn-primary{
-    display: block;
-    margin-left: 85%;
+    position: absolute;
+    right: 30%;
+    top:30%
 }
 
 .personal-post img{
     border-radius: 50%;
+}
+
+/* バリデーション */
+.error{
+    margin-top: 5px;
+    font-size: 12px;
+    color: #ca4e37;
 }

@@ -21,7 +21,7 @@
     <!--iphoneのアプリアイコン指定-->
     <link rel="apple-touch-icon-precomposed" href="{{ asset('images/main_logo.png') }}" />
     <!--OGPタグ/twitterカード-->
-    <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js') }}"></script>
+    <script src="{{ asset('https://code.jquery.com/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ asset('./js/script.js') }}"></script>
     <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js') }}"></script>
 
@@ -30,44 +30,48 @@
     <header>
         <div id = "head">
             <h1><a href="/top"><img src="{{ asset('images/main_logo.png') }}"></a></h1>
-    </header>
+            <h2><img src="{{ asset('storage/images/'.Auth::user()->images)}}"><h2>
 
-    <div class="menu">
-            <label for="menu_bar01">
-                    <?php $user = Auth::user(); ?>{{ $user->username }}さん
-                    <div class="arrow"></div>
-                    <img src="{{ asset('images/dawn.png')}}">
-            </label>
-            <input type="checkbox" id="menu_bar01" class="accordion">
-                 <ul id="links01">
-                    <li><a href="/top">HOME</a></li>
-                    <li><a href="/profile">プロフィール</a></li>
-                    <li><a href="/logout">ログアウト</a></li>
+        <div id="accordion" class="accordion-container">
+        <h3 class="accordion-title js-accordion-title"> <?php $user = Auth::user(); ?>{{ $user->username }} さん </h3>
+            <div class="accordion-content">
+            <ul id="links">
+                <li><a href="/top">HOME</a></li>
+                <li><a href="/profile">プロフィール</a></li>
+                <li><a href="/logout">ログアウト</a></li>
             </ul>
-    </div>
+            </div>
+        </div>
+
+</header>
 
     <div id="row">
         <div id="container">
             @yield('content')
-        </div >
-
-        <div id="side-bar">
+            <div id="side-bar">
             <div id="confirm">
-                <p><?php $user = Auth::user(); ?>{{ $user->username }}さんの</p>
+                <p class = "left-title"><?php $user = Auth::user(); ?>{{ $user->username }}さんの</p>
                 <div>
-                <p>フォロー数</p>
+                <p class = "left-title">フォロー数</p>
                 <p><?php $follow_counts = DB::table('follows')->where('follow',Auth::user()->id)->count(); ?>{{ $follow_counts }}名</p>
                 </div>
                 <p class="btn"><a href="/follow-list">フォローリスト</a></p>
                 <div>
-                <p>フォロワー数</p>
+                <p class = "left-title">フォロワー数</p>
                 <p><?php $follower_counts = DB::table('follows')->where('follower',Auth::user()->id)->count(); ?>{{ $follower_counts }}名</p>
                 </div>
                 <p class="btn"><a href="/follower-list">フォロワーリスト</a></p>
             </div>
+            <div class = "line"></div>
+            <div id="search-btn">
             <p class="btn"><a href="/search">ユーザー検索</a></p>
+            </div>
         </div>
+        </div>
+
+
     </div>
+
     <footer>
     </footer>
 </body>
