@@ -1,11 +1,9 @@
 @extends('layouts.login')
-
 @section('content')
 
 <body>
     <div class="UserProfile">
     <img src="storage/images/{{Auth::user()->images}}" style="border-radius: 50%;">
-
     {!! Form::open(['url' => '/profileup','files' => 'true']) !!}
     {!! Form::label('UserName') !!}
     {!! Form::input('text', 'up_username', Auth::user()->username , ['required', 'class' => 'form-control']) !!}</>
@@ -19,7 +17,6 @@
         @endif
     {!! Form::label('Password') !!}
     {!! Form::input('password', 'password', $passwordCount , ['required', 'class' => 'form-control' , 'readonly']) !!}</>
-
     {!! Form::label('new Password') !!}
     {!! Form::input('password', 'up_password', null , ['class' => 'form-control']) !!}</>
         @if($errors->has('up_password'))
@@ -38,7 +35,6 @@
     <button type="submit" class="btn btn-success pull-right">更新</button>
     {!! Form::close() !!}
     </div>
-
 </body>
 </html>
 </div>

@@ -13,14 +13,12 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends Controller
 {
 
-    //ログインユーザーのプロフィール
     public function profile(Request $request){
       $passwordCount = session()->get('wordCount');
-      // dd($password);
+
       return view('users.profile', ['passwordCount'=>$passwordCount]);
     }
 
-    //ログインユーザーのプロフィール更新
     public function profileup(Request $request){
       $request->validate(
       [ 'up_username' => 'required|string|min:4|max:12',
@@ -82,7 +80,6 @@ class UsersController extends Controller
       return redirect('/logout');
     }
 
-    // 指定したユーザーのプロフィール
     public function personalprofile($id){
       $users = DB::table('users')->find($id);
       $posts = DB::table('posts')->where('user_id',$id)->orderBy('created_at','desc')->get();
@@ -109,8 +106,6 @@ class UsersController extends Controller
         return redirect('/top');
     }
 
-
-    //ユーザー検索
     public function index(){
       $follows = DB::table('follows')->where('follow',Auth::user()->id)->get();
       $users = User::all();
@@ -119,9 +114,7 @@ class UsersController extends Controller
 
     public function search(Request $request) {
         $follows = DB::table('follows')->where('follow',Auth::user()->id)->get();
-        // 検索結果の表示
         $keyword_username = $request->username;
-        // 曖昧検索
         if(!empty($keyword_username)) {
         $query = User::query();
         $users = $query->where('username','like', '%' .$keyword_username. '%')->get();
@@ -133,17 +126,15 @@ class UsersController extends Controller
         }
     }
 
-    // フォローをする　followにログインユーザーのID　followerにフォローされたユーザーのID
     public function follow($id){
       DB::table('follows')->insert([
-        'follower' => $id,//フォローされたユーザー
-        'follow' => Auth::user()->id,//フォローしたユーザー
+        'follower' => $id,
+        'follow' => Auth::user()->id,
     ]);
 
       return redirect('/search');
     }
 
-    // フォローを解除する
     public function unfollow($id){
       DB::table('follows')
           ->where('follower', $id)
@@ -152,5 +143,4 @@ class UsersController extends Controller
 
       return redirect('/search');
     }
-
 }

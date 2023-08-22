@@ -70,11 +70,11 @@ class RegisterController extends Controller
             'password.min' => '4文字以上で入力してください',
             'password.max' => '12文字以内で入力してください',
             'password.unique' => 'すでに登録されています',
+            'password.confirmed' => 'パスワードが一致していません',
 
             'password_confirmation.required' => '必須項目です',
             'password_confirmation.min' => '4文字以上で入力してください',
             'password_confirmation.max' => '12文字以内で入力してください',
-            'password_confirmation.same' => 'パスワードと確認用パスワードが一致していません',
         ])->validate();
     }
 
@@ -92,11 +92,6 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
-
-
-    // public function registerForm(){
-    //     return view("auth.register");
-    // }
 
     public function register(Request $request){
         if($request->isMethod('post')){

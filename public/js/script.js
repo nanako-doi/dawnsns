@@ -1,6 +1,3 @@
-// console.log(1+1);
-
-// 三角マーク
 jQuery(function ($) {
   $('.js-accordion-title').on('click', function () {
     $(this).next().slideToggle(200);
@@ -9,7 +6,6 @@ jQuery(function ($) {
 
   });
 
-// モーダル
 $(function () {
     $('.modal-open').each(function () {
       $(this).on('click', function () {
@@ -20,9 +16,9 @@ $(function () {
         return false;
       });
     });
-    // $('.modal-close').on('click', function () {
-    //   $('.js-modal').fadeOut();
-    //   return false;
-    // });
+    $('.js-modal-close').on('click', function () {
+      $('.js-modal').fadeOut();
+      return false;
+    });
   });
 

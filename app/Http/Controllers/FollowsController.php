@@ -9,7 +9,6 @@ use \App\User;
 
 class FollowsController extends Controller
 {
-    //フォローリスト
     public function followList(){
         $follows = DB::table('follows')->where('follow',Auth::user()->id)->get();
         $users = User::all();
@@ -26,7 +25,6 @@ class FollowsController extends Controller
         return view('follows.followList')->with(['users'=>$users , 'follows'=>$follows , 'posts'=>$posts]);
     }
 
-    //フォロワーリスト
     public function followerList(){
         $followers = DB::table('follows')->where('follower',Auth::user()->id)->get();
         $users = User::all();
@@ -42,5 +40,4 @@ class FollowsController extends Controller
 
         return view('follows.followerList')->with(['users'=>$users , 'followers'=>$followers , 'posts'=>$posts]);
     }
-
 }

@@ -9,7 +9,6 @@ use \App\User;
 
 class PostsController extends Controller
 {
-    // トップ　ポスト表示
     public function index(){
         $follow_ids=DB::table('follows')
         ->where('follow',Auth::id())
@@ -24,10 +23,9 @@ class PostsController extends Controller
         return view('posts.index')->with(['posts'=>$posts]);
     }
 
-    // トップ　ポスト作成
     public function create(Request $request){
         $request->validate(
-            [ 'newPost' => 'max:150',],
+            ['newPost' => 'max:150',],
             ['newPost.max' => '200文字以内で入力してください',]
         );
         $id = $request->input('id');
@@ -39,10 +37,9 @@ class PostsController extends Controller
         return redirect('/top');
     }
 
-    // トップ　ポスト更新
     public function update(Request $request){
         $request->validate(
-            [ 'upPost' => 'max:150',],
+            ['upPost' => 'max:150',],
             ['upPost.max' => '200文字以内で入力してください',]
         );
         $id = $request->input('id');
@@ -55,7 +52,6 @@ class PostsController extends Controller
         return redirect('/top');
     }
 
-    // トップ　ポスト削除
     public function delete($id){
         DB::table('posts')->where('id', $id)->delete();
 

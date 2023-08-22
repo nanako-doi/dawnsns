@@ -10,7 +10,6 @@
     <link rel='stylesheet' href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/reset.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
-
     <!--スマホ,タブレット対応-->
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <!--サイトのアイコン指定-->
@@ -24,16 +23,14 @@
     <script src="{{ asset('https://code.jquery.com/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ asset('./js/script.js') }}"></script>
     <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js') }}"></script>
-
 </head>
 <body>
     <header>
         <div id = "head">
             <h1><a href="/top"><img src="{{ asset('images/main_logo.png') }}"></a></h1>
             <h2><img src="{{ asset('storage/images/'.Auth::user()->images)}}"><h2>
-
         <div id="accordion" class="accordion-container">
-        <h3 class="accordion-title js-accordion-title"> <?php $user = Auth::user(); ?>{{ $user->username }} さん </h3>
+        <h3 class="accordion-title js-accordion-title"><?php $user = Auth::user(); ?>{{ $user->username }}さん</h3>
             <div class="accordion-content">
             <ul id="links">
                 <li><a href="/top">HOME</a></li>
@@ -42,9 +39,7 @@
             </ul>
             </div>
         </div>
-
-</header>
-
+    </header>
     <div id="row">
         <div id="container">
             @yield('content')
@@ -68,10 +63,7 @@
             </div>
         </div>
         </div>
-
-
     </div>
-
     <footer>
     </footer>
 </body>
